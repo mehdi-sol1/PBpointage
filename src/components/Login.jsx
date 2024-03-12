@@ -14,7 +14,7 @@ const Login = () => {
     const user = userData.users.find((user) => user.username === username && user.password === password);
 
     if (user) {
-      // Successful login
+      // Successful login now
       console.log('Login successful');
       // Redirect to the Drag component
       navigate(`/drag/${username}`);

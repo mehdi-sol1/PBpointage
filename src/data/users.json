@@ -1,0 +1,10 @@
+{
+    "users": [
+      { "username": "RealTech", "password": "123" },
+      { "username": "Airbus", "password": "123" },
+      { "username": "admin", "password": "123" }
+    ]
+  }
+
+
+

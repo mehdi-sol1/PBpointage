@@ -5,6 +5,11 @@ import { FaFileUpload } from 'react-icons/fa';
 
 const Drag = () => {
   const [cleanedData, setCleanedData] = useState(null);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
   useEffect(() => {
     if (cleanedData) {
@@ -88,7 +93,14 @@ const downloadExcel = () => {
   const ws = XLSX.utils.json_to_sheet(cleanedData);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Cleaned Data');
-  const blob =XLSX.writeFile(wb, `results.xlsx`);
+  if(inputValue === '')
+  {
+    const blob =XLSX.writeFile(wb, `result.xlsx`);
+  }
+  else{
+    const blob =XLSX.writeFile(wb, `${inputValue}.xlsx`);
+  }
+  
 
 
   // Use XLSX.write to generate a blob
@@ -108,13 +120,19 @@ const downloadExcel = () => {
 
 
   return (
-    <div
-      className="flex items-center justify-center h-screen bg-white"
-      onDragOver={(event) => event.preventDefault()}
-      onDrop={handleDrop}
-    >
-      <div className="bg-white p-8 w-[65%] h-[55%] border-[8px] border-dashed border-blue-500  rounded-lg shadow-md flex justify-center items-center">
-        
+    <div className="flex flex-col  items-center h-screen bg-gray-800">
+      <input
+            type="text"
+            value={inputValue}  // Bind input value to state variable
+            onChange={handleChange}  // Call handleChange function when input changes
+            placeholder="File Name"
+            className='p-4 bg-gray-800 text-white mb-10 mt-36 rounded-3xl text-center w-72 border-[2px] border-blue-500 '
+          />
+      <div className="bg-gray-800 p-8 w-[65%] h-[55%] border-[8px] border-dashed border-blue-500  rounded-lg shadow-md flex justify-center items-center"
+           onDragOver={(event) => event.preventDefault()}
+           onDrop={handleDrop}
+      >
+          
           <div className='rounded-full bg-white border-gray-200 border-2'>
             <FaFileUpload className='mb-6 text-blue-400' size={150} />
           </div>
